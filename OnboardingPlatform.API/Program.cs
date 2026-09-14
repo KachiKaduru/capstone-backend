@@ -51,7 +51,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 }
 
 // Commented for container-friendly testing (remove if you want HTTPS redirects)
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
