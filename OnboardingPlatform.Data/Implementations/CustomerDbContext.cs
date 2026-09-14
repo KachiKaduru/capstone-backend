@@ -84,13 +84,13 @@ namespace OnboardingPlatform.Data.Implementations
                     .HasColumnName("CreatedAt")
                     .HasColumnType("datetime")
                     .IsRequired()
-                    .HasDefaultValueSql("GETUTCDATE()");
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnName("UpdatedAt")
                     .HasColumnType("datetime")
                     .IsRequired()
-                    .HasDefaultValueSql("GETUTCDATE()")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP")
                     .ValueGeneratedOnAddOrUpdate();
             });
         }

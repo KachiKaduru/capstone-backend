@@ -22,7 +22,11 @@ builder.Services.AddSwaggerGen(c =>
 
 // Register DbContexts
 builder.Services.AddDbContext<CustomerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    var serverVersion = ServerVersion.AutoDetect(connectionString); // Automatically detects the MySQL version
+    options.UseMySql(connectionString, serverVersion);
+});
 
 builder.Services.AddCors(options =>
 {
@@ -40,7 +44,7 @@ builder.Services.AddSingleton<IHealthService, HealthService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
